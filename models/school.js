@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const schoolSchema = new Schema({
   name: String,
   state: String,
-  listings: [listingSchema]    //   TODO
+  listings: [{ type: Schema.Types.ObjectId, ref: 'Listing' }]
 },{
   timestamps: true,
 })

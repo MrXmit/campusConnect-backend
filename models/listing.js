@@ -25,7 +25,8 @@ const listingSchema = new Schema(
   availability: {
     type: Date  // todo: check dates in future ???
   },
-  profile: { type: Schema.Types.ObjectId, ref: 'Profile' }
+  profile: { type: Schema.Types.ObjectId, ref: 'Profile' },
+  school: { type: Schema.Types.ObjectId, ref: 'School' }
 },
 {timestamps: true,}
 )
