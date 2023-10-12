@@ -53,9 +53,22 @@ async function update(req, res) {
   }
 }
 
+async function deleteService(req, res) {
+  try {
+    const service = await Service.findByIdAndDelete(req.params.serviceId)
+    const profile = await Profile.findById(req.user.profile)
+    profile.services.remove({ _id: req.params.serviceId })
+    await profile.save()
+    res.status(200).json(service)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
-  index,
   create,
+  index,
   show,
   update,
+  deleteService as delete
 }

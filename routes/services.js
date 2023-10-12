@@ -14,5 +14,6 @@ router.get('/', checkAuth, servicesCtrl.index)
 router.post('/', checkAuth, servicesCtrl.create)
 router.get('/:serviceId', checkAuth, servicesCtrl.show)
 router.put('/:serviceId', checkAuth, servicesCtrl.update)
+router.delete('/:serviceId', checkAuth, servicesCtrl.delete)
 
 export { router }
