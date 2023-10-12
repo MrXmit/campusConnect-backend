@@ -1,17 +1,17 @@
 import { Profile } from "../models/profile.js"
-import { Listing } from "../models/listing.js"
+import { Service } from "../models/service.js"
 
 
 async function create(req, res) {
   try {
     req.body.owner = req.user.profile
-    const listing = await Listing.create(req.body)
+    const service = await Service.create(req.body)
     const owner = await Profile.findByIdAndUpdate(
       req.user.profile,
-      { $push: { listings: listing } },
+      { $push: { services: service } },
       { new: true }
     )
-    listing.owner = owner
+    service.owner = owner
     res.status(201).json(blog)
   } catch (error) {
     console.log(error)

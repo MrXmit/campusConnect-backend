@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-const listingSchema = new Schema(
+const serviceSchema = new Schema(
   {
     name: {
       type: String,
@@ -30,6 +30,6 @@ const listingSchema = new Schema(
   { timestamps: true, }
 )
 
-const Listing = mongoose.model('Listing', listingSchema)
+const Service = mongoose.model('Service', serviceSchema)
 
-export { Listing }
+export { Service }

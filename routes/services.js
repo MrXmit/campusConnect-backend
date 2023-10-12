@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import * as listingsCtrl from '../controllers/listings.js'
+import * as servicesCtrl from '../controllers/services.js'
 import { decodeUserFromToken, checkAuth } from '../middleware/auth.js'
 
 
@@ -10,6 +10,6 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
-router.post('/', checkAuth, listingsCtrl.create)
+router.post('/', checkAuth, servicesCtrl.create)
 
 export { router }
