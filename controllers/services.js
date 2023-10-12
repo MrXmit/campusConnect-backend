@@ -40,9 +40,22 @@ async function create(req, res) {
   }
 }
 
+async function update(req, res) {
+  try {
+    const service = await Service.findByIdAndUpdate(
+      req.params.serviceId,
+      req.body,
+      { new: true }
+    ).populate('author')
+    res.status(200).json(service)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
 
 export {
   index,
   create,
-  show
+  show,
+  update,
 }
