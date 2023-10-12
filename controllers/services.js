@@ -2,6 +2,19 @@ import { Profile } from "../models/profile.js"
 import { Service } from "../models/service.js"
 
 
+async function index(req, res) {
+  try {
+    const services = await Service.find({})
+      .populate('author')
+      .sort({ createdAt: 'desc' })
+    res.status(200).json(services)
+  } catch (error) {
+    console.log(555555555555555555)
+    res.status(500).json(error)
+  }
+}
+
+
 async function create(req, res) {
   try {
     req.body.owner = req.user.profile
@@ -20,5 +33,6 @@ async function create(req, res) {
 }
 
 export {
+  index,
   create
 }

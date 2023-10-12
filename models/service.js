@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 const serviceSchema = new Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
     },
@@ -22,10 +22,11 @@ const serviceSchema = new Schema(
       required: true,
     },
     availability: {
-      type: Date  // todo: check dates in future ???
+      type: String  // todo: check dates in future ???
     },
-    owner: { type: Schema.Types.ObjectId, ref: 'Profile' },
+    author: { type: Schema.Types.ObjectId, ref: 'Profile' },
     // school: { type: Schema.Types.ObjectId, ref: 'School' }
+    // todo bookings 
   },
   { timestamps: true, }
 )
