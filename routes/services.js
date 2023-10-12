@@ -12,5 +12,7 @@ const router = Router()
 router.use(decodeUserFromToken)
 router.get('/', checkAuth, servicesCtrl.index)
 router.post('/', checkAuth, servicesCtrl.create)
+router.get('/:serviceId', checkAuth, servicesCtrl.show)
+router.put('/:serviceId', checkAuth, servicesCtrl.update)
 
 export { router }

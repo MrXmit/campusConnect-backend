@@ -9,30 +9,40 @@ async function index(req, res) {
       .sort({ createdAt: 'desc' })
     res.status(200).json(services)
   } catch (error) {
-    console.log(555555555555555555)
     res.status(500).json(error)
   }
 }
 
+async function show(req, res) {
+  try {
+    const service = await Service.findById(req.params.serviceId)
+      .populate('author')
+      // .populate(['author', 'comments.author'])
+    res.status(200).json(service)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
 
 async function create(req, res) {
   try {
-    req.body.owner = req.user.profile
+    req.body.author = req.user.profile
     const service = await Service.create(req.body)
-    const owner = await Profile.findByIdAndUpdate(
+    const profile = await Profile.findByIdAndUpdate(
       req.user.profile,
       { $push: { services: service } },
       { new: true }
     )
-    service.owner = owner
-    res.status(201).json(blog)
+    service.author = profile
+    res.status(201).json(service)
   } catch (error) {
-    console.log(error)
     res.status(500).json(error)
   }
 }
 
+
 export {
   index,
-  create
+  create,
+  show
 }
