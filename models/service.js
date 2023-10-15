@@ -11,7 +11,7 @@ const reviewSchema = new Schema({
 
 const serviceSchema = new Schema(
   {
-    Type: {
+    type: {
       type: String,
       required: true,
       enum: ['Haircut','Tutoring', 'HandyWork', 'Cooking', 'Other']
