@@ -65,10 +65,23 @@ async function deleteService(req, res) {
   }
 }
 
+async function addReview(req, res) {
+  try {
+    const service = await Service.findById(req.params.serviceId)
+    req.body.author = req.user.profile
+    service.reviews.push(req.body)
+    await service.save()
+    res.status(200).json(service)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   create,
   index,
   show,
   update,
-  deleteService as delete
+  deleteService as delete,
+  addReview,
 }
