@@ -11,18 +11,14 @@ const reviewSchema = new Schema({
 
 const serviceSchema = new Schema(
   {
-    title: {
+    Type: {
       type: String,
       required: true,
+      enum: ['Haircut','Tutoring', 'HandyWork', 'Cooking', 'Other']
     },
     description: {
       type: String,
       required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-      enum: ['News', 'Sports', 'Games', 'Movies', 'Music', 'Television'],
     },
     price: {
       type: Number,  // todoo: check only possitive vals
