@@ -3,7 +3,6 @@ import { School } from "../models/school.js"
 async function index(req, res) {
   try {
     const schools = await School.find({})
-      // .populate('services')
     res.status(200).json(schools)
   } catch (error) {
     res.status(500).json(error)

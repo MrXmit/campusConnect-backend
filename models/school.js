@@ -10,9 +10,8 @@ const schoolSchema = new Schema({
   state: {
     type: String,
     required: true
-  },
-  services: [{ type: Schema.Types.ObjectId, ref: 'Service' }]
-},{
+  }
+}, {
   timestamps: true,
 })
 
