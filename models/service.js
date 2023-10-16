@@ -19,10 +19,10 @@ const serviceSchema = new Schema(
       type: String,
       required: true,
     },
-    category: {
+    type: {
       type: String,
       required: true,
-      enum: ['News', 'Sports', 'Games', 'Movies', 'Music', 'Television'],
+      enum: ['Haircut', 'Tutoring', 'HandWork', 'Cooking', 'DIY', 'Other'],
     },
     price: {
       type: Number,
