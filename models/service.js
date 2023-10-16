@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 const reviewSchema = new Schema({
   text: String,
   rating: { type: Number, min: 1, max: 5, default: 5 },
-  author: { type: Schema.Types.ObjectId, ref: "Profile"},
+  author: { type: Schema.Types.ObjectId, ref: "Profile" },
 })
 
 const serviceSchema = new Schema(
@@ -25,16 +25,22 @@ const serviceSchema = new Schema(
       enum: ['News', 'Sports', 'Games', 'Movies', 'Music', 'Television'],
     },
     price: {
-      type: Number,  // todoo: check only possitive vals
+      type: Number,
       required: true,
+      validate: {
+        validator: function (value) {
+          return value >= 0;
+        },
+        message: props => 'Price cannot be negative!'
+      }
     },
     availability: {
-      type: String  // todo: check dates in future ???
+      type: String
     },
     reviews: [reviewSchema],
-    author: { type: Schema.Types.ObjectId, ref: 'Profile' },
-    // school: { type: Schema.Types.ObjectId, ref: 'School' }
-    // todo bookings 
+    createdBy: { type: Schema.Types.ObjectId, ref: 'Profile' },
+    school: { type: Schema.Types.ObjectId, ref: 'School' },
+    bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }]
   },
   { timestamps: true, }
 )

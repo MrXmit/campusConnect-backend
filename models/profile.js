@@ -3,11 +3,9 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const profileSchema = new Schema({
-  name: String,
-  photo: String,
-  services: [{ type: Schema.Types.ObjectId, ref: 'Service' }],
-  bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }]
-},{
+  name: { type: String, required: true },
+  photo: String
+}, {
   timestamps: true,
 })
 

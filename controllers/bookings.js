@@ -5,7 +5,7 @@ import { Service } from "../models/service.js"
 async function index(req, res) {
   try {
     const bookings = await Booking.find({})
-      .populate(['customer','service'])
+      .populate(['customer', 'service'])
       .sort({ createdAt: 'desc' })
     res.status(200).json(bookings)
   } catch (error) {
@@ -13,8 +13,8 @@ async function index(req, res) {
   }
 }
 
-// todo getBooking per user
-
+// todo getBooking per Customer
+// todo getBooking per Author (created By)
 
 async function show(req, res) {
   try {
@@ -29,19 +29,9 @@ async function show(req, res) {
 async function create(req, res) {
   try {
     req.body.customer = req.user.profile
-    
-    const service = await Service.findById(req.body.serviceId)
-    req.body.service = service._id
+    const service = await Service.findById(req.body.service)
     req.body.price = service.price
-    
     const booking = await Booking.create(req.body)
-
-    const profile = await Profile.findByIdAndUpdate(
-      req.user.profile,
-      { $push: { bookings: booking } },
-      { new: true }
-    )
-    
     res.status(201).json(booking)
   } catch (error) {
     res.status(500).json(error)
@@ -54,7 +44,7 @@ async function update(req, res) {
       req.params.bookingId,
       req.body,
       { new: true }
-    ).populate('customer')
+    )
     res.status(200).json(booking)
   } catch (error) {
     res.status(500).json(error)
@@ -64,13 +54,6 @@ async function update(req, res) {
 async function deleteBooking(req, res) {
   try {
     const booking = await Booking.findByIdAndDelete(req.params.bookingId)
-    const profile = await Profile.findById(req.user.profile)
-    profile.bookings.remove({ _id: req.params.bookingId })
-
-    const serviceId = await Service.findById(booking.service)
-    profile.services.remove({ _id: serviceId })
-    // Toto delete the booking from the profile and Service
-    await profile.save()
 
     res.status(200).json(booking)
   } catch (error) {
