@@ -29,9 +29,14 @@ async function create(req, res) {
   try {
     req.body.author = req.user.profile
     const service = await Service.create(req.body)
-    const profile = await Profile.findByIdAndUpdate(
-      req.user.profile,
-      { $push: { services: service } },
+    // const profile = await Profile.findByIdAndUpdate(
+    //   req.user.profile,
+    //   { $push: { services: service } },
+    //   { new: true }
+    // )
+    const school = await School.findByIdAndUpdate(
+      req.params.schoolId, 
+      { $push: { services: service } }, 
       { new: true }
     )
     service.author = profile
