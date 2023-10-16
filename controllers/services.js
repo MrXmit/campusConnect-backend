@@ -1,5 +1,6 @@
 import { Profile } from "../models/profile.js"
 import { Service } from "../models/service.js"
+import { School } from "../models/school.js"
 
 
 async function index(req, res) {
@@ -29,6 +30,7 @@ async function create(req, res) {
   try {
     req.body.createdBy = req.user.profile
     const service = await Service.create(req.body)
+    const school = await School.findById(req.body.school)
     res.status(201).json(service)
   } catch (error) {
     res.status(500).json(error)
