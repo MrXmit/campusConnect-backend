@@ -1,5 +1,6 @@
 import { Profile } from "../models/profile.js"
 import { Service } from "../models/service.js"
+import { School } from "../models/school.js"
 
 
 async function index(req, res) {

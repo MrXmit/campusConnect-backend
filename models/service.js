@@ -11,6 +11,7 @@ const reviewSchema = new Schema({
 
 const serviceSchema = new Schema(
   {
+    
     type: {
       type: String,
       required: true,
@@ -29,7 +30,7 @@ const serviceSchema = new Schema(
     },
     reviews: [reviewSchema],
     author: { type: Schema.Types.ObjectId, ref: 'Profile' },
-    // school: { type: Schema.Types.ObjectId, ref: 'School' }
+    school: { type: Schema.Types.ObjectId, ref: 'School' }
     // todo bookings 
   },
   { timestamps: true, }
