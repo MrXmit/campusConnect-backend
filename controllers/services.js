@@ -24,13 +24,19 @@ async function show(req, res) {
   }
 }
 
-// TODO get Serevices by Scool
+// TODO get Services by School
 
 async function create(req, res) {
   try {
+    console.log(req.body)
     req.body.createdBy = req.user.profile
+    req.body.school = await School.findById(req.body.schoolId)
     const service = await Service.create(req.body)
-    const school = await School.findById(req.body.school)
+    await School.findByIdAndUpdate(
+      req.body.schoolId,
+      { $push: { services: service } }, 
+      { new: true })
+
     res.status(201).json(service)
   } catch (error) {
     res.status(500).json(error)

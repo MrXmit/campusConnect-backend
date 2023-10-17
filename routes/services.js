@@ -16,7 +16,6 @@ router.get('/:serviceId', checkAuth, servicesCtrl.show)
 router.put('/:serviceId', checkAuth, servicesCtrl.update)
 router.post('/:serviceId/reviews', checkAuth, servicesCtrl.addReview)
 router.delete('/:serviceId', checkAuth, servicesCtrl.delete)
-
 router.put('/:serviceId/reviews/:reviewId', checkAuth, servicesCtrl.updateReview)
 router.delete('/:serviceId/reviews/:reviewId', checkAuth, servicesCtrl.deleteReview)
 
