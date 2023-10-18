@@ -36,9 +36,13 @@ const serviceSchema = new Schema(
         message: props => 'Price cannot be negative!'
       }
     },
-    availability: {
-      type: String
-    },
+    availability: [
+      {
+        day: { type: String, required: true },
+        startTime: { type: String, required: true },
+        endTime: { type: String, required: true },
+      }
+    ],
     reviews: [reviewSchema],
     createdBy: { type: Schema.Types.ObjectId, ref: 'Profile' },
     school: { type: Schema.Types.ObjectId, ref: 'School' },
