@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const bookingSchema = new Schema({
-  date: Date,
+  date: String,
   price: {
     type: Number,
     required: true
