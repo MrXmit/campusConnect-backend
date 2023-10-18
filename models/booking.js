@@ -8,6 +8,7 @@ const bookingSchema = new Schema({
     type: Number,
     required: true
   },
+  request: String,
   service: { type: Schema.Types.ObjectId, ref: 'Service' },
   customer: { type: Schema.Types.ObjectId, ref: 'Profile' },
 
