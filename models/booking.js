@@ -8,9 +8,11 @@ const bookingSchema = new Schema({
     type: Number,
     required: true
   },
+  contactinfo: String,
   request: String,
   service: { type: Schema.Types.ObjectId, ref: 'Service' },
   customer: { type: Schema.Types.ObjectId, ref: 'Profile' },
+  status: { type: Boolean, default: false}
 
 }, {
   timestamps: true,

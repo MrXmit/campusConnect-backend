@@ -43,6 +43,7 @@ const serviceSchema = new Schema(
         endTime: { type: String, required: true },
       }
     ],
+    contactinfo: String,
     reviews: [reviewSchema],
     createdBy: { type: Schema.Types.ObjectId, ref: 'Profile' },
     school: { type: Schema.Types.ObjectId, ref: 'School' },
