@@ -15,5 +15,6 @@ router.post('/', checkAuth, bookingsCtrl.create)
 router.get('/:bookingId', checkAuth, bookingsCtrl.show)
 router.put('/:bookingId', checkAuth, bookingsCtrl.update)
 router.delete('/:bookingId', checkAuth, bookingsCtrl.delete)
+router.get('/customer/:customerId', checkAuth, bookingsCtrl.getBookingsPerCustomer)
 
 export { router }
