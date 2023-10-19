@@ -5,7 +5,8 @@ import { Service } from "../models/service.js"
 async function index(req, res) {
   try {
     const bookings = await Booking.find({})
-      .populate(['customer', 'service'])
+      .populate('customer')
+      .populate('service')
       .sort({ createdAt: 'desc' })
     res.status(200).json(bookings)
   } catch (error) {
@@ -29,9 +30,14 @@ async function show(req, res) {
 async function create(req, res) {
   try {
     req.body.customer = req.user.profile
-    const service = await Service.findById(req.body.service)
+    req.body.service = req.body.serviceId
+    const service = await Service.findById(req.body.serviceId)
     req.body.price = service.price
     const booking = await Booking.create(req.body)
+    await Service.findByIdAndUpdate(
+      req.body.serviceId,
+      { $push: { bookings: booking } }, 
+      { new: true })
     res.status(201).json(booking)
   } catch (error) {
     res.status(500).json(error)
@@ -43,6 +49,20 @@ async function update(req, res) {
     const booking = await Booking.findByIdAndUpdate(
       req.params.bookingId,
       req.body,
+      { new: true }
+    )
+    res.status(200).json(booking)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+async function updateStatus(req, res) {
+  try {
+    const { status } = req.body
+    const booking = await Booking.findByIdAndUpdate(
+      req.params.bookingId,
+      { status },
       { new: true }
     )
     res.status(200).json(booking)
@@ -66,5 +86,6 @@ export {
   index,
   show,
   update,
-  deleteBooking as delete
+  deleteBooking as delete,
+  updateStatus
 }
