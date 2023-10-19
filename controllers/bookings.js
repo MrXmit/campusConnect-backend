@@ -14,8 +14,20 @@ async function index(req, res) {
   }
 }
 
-// todo getBooking per Customer
-// todo getBooking per Author (created By)
+async function getBookingsPerCustomer(req, res) {
+  try {
+    const bookings = await Booking.find({})
+      .populate('customer')
+      .sort({ createdAt: 'desc' })
+
+      const filteredBookings = bookings.filter(booking => {
+      return booking.customer._id.toString().slice(0, -1) === req.params.customerId.slice(0, -1)
+    })
+    res.status(200).json(filteredBookings)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
 
 async function show(req, res) {
   try {
@@ -87,5 +99,6 @@ export {
   show,
   update,
   deleteBooking as delete,
-  updateStatus
+  updateStatus,
+  getBookingsPerCustomer
 }

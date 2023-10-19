@@ -18,6 +18,7 @@ router.post('/:serviceId/reviews', checkAuth, servicesCtrl.addReview)
 router.delete('/:serviceId', checkAuth, servicesCtrl.delete)
 router.put('/:serviceId/reviews/:reviewId', checkAuth, servicesCtrl.updateReview)
 router.delete('/:serviceId/reviews/:reviewId', checkAuth, servicesCtrl.deleteReview)
+router.get('/createdBy/:creatorId', checkAuth, servicesCtrl.getServicesPerCreator)
 
 
 export { router }

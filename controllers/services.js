@@ -14,6 +14,22 @@ async function index(req, res) {
   }
 }
 
+async function getServicesPerCreator(req, res) {
+  try {
+    const services = await Service.find({})
+      .populate(['createdBy', 'reviews'])
+      .sort({ createdAt: 'desc' })
+
+    const filteredServices = services.filter(service => {
+      return service.createdBy._id.toString().slice(0, -1) === req.params.creatorId.slice(0, -1)
+    })
+
+    res.status(200).json(filteredServices)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 async function show(req, res) {
   try {
     const service = await Service.findById(req.params.serviceId)
@@ -112,5 +128,6 @@ export {
   deleteService as delete,
   addReview,
   updateReview,
-  deleteReview
+  deleteReview,
+  getServicesPerCreator
 }
