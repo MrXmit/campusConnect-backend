@@ -16,15 +16,10 @@ async function index(req, res) {
 
 async function getServicesPerCreator(req, res) {
   try {
-    const services = await Service.find({})
+    const services = await Service.find({createdBy: req.params.creatorId})
       .populate(['createdBy', 'reviews'])
       .sort({ createdAt: 'desc' })
-
-    const filteredServices = services.filter(service => {
-      return service.createdBy._id.toString().slice(0, -1) === req.params.creatorId.slice(0, -1)
-    })
-
-    res.status(200).json(filteredServices)
+    res.status(200).json(services)
   } catch (error) {
     res.status(500).json(error)
   }
@@ -87,9 +82,7 @@ async function addReview(req, res) {
     req.body.author = req.user.profile
     service.reviews.push(req.body)
     await service.save()
-
     const newReview = service.reviews[service.reviews.length - 1]
-
     res.status(201).json(newReview)
   } catch (error) {
     res.status(500).json(error)
