@@ -16,14 +16,10 @@ async function index(req, res) {
 
 async function getBookingsPerCustomer(req, res) {
   try {
-    const bookings = await Booking.find({})
+    const bookings = await Booking.find({customer: req.params.customerId})
       .populate('customer')
       .sort({ createdAt: 'desc' })
-
-      const filteredBookings = bookings.filter(booking => {
-      return booking.customer._id.toString().slice(0, -1) === req.params.customerId.slice(0, -1)
-    })
-    res.status(200).json(filteredBookings)
+    res.status(200).json(bookings)
   } catch (error) {
     res.status(500).json(error)
   }
