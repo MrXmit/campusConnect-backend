@@ -16,7 +16,7 @@ async function index(req, res) {
 
 async function getServicesPerCreator(req, res) {
   try {
-    const services = await Service.find({createdBy: req.params.creatorId})
+    const services = await Service.find({createdBy: req.params.userId})
       .populate(['createdBy', 'reviews'])
       .sort({ createdAt: 'desc' })
     res.status(200).json(services)
